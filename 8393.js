@@ -9,3 +9,6 @@ for (let i = 1; i <= num; i++) {
   hap += i;
 }
 console.log(hap);
+
+/* 한줄 풀이 - 등차수열 */
+console.log((num * (num + 1)) / 2);
