@@ -5,8 +5,9 @@ let maxValue = 0;
 let maxValueIndex = 0;
 
 input.forEach((num, index) => {
-  if (Number(num) > maxValue) {
-    maxValue = Number(num);
+  const NumberValue = Number(num);
+  if (NumberValue > maxValue) {
+    maxValue = NumberValue;
     maxValueIndex = index;
   }
 });
