@@ -6,13 +6,10 @@ let answer = "";
 
 for (let i = 1; i <= n; i++) {
   let text = "";
-  const data = input[i].split(" ");
-  const repeat = Number(data[0]);
+  const [r, s] = input[i].split(" ");
 
-  data[1].split("").forEach((s) => {
-    for (let j = 0; j < repeat; j++) {
-      text += s;
-    }
+  s.split("").forEach((str) => {
+    text += str.repeat(r);
   });
   answer += text + "\n";
 }
