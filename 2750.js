@@ -12,8 +12,9 @@ arr.sort((a, b) => a - b);
 
 let answer = "";
 
-for (let i = 0; i < arr.length; i++) {
-  answer += arr[i] + "\n";
-}
+// forEach를 사용해 순회
+arr.forEach((num) => {
+  answer += num + "\n";
+});
 
 console.log(answer);
