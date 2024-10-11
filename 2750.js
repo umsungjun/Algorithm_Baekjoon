@@ -1,14 +1,19 @@
 let fs = require("fs");
 let input = fs.readFileSync("/dev/stdin").toString().split("\n");
 
-const answer = [];
+const n = Number(input[0]);
+const arr = [];
 
-for (let i = 1; i <= Number(input[0]); i++) {
-  answer.push(Number(input[i]));
+for (let i = 1; i <= n; i++) {
+  arr.push(Number(input[i]));
 }
 
-answer.sort((a, b) => a - b);
+arr.sort((a, b) => a - b);
 
-answer.forEach((num) => {
-  console.log(num);
-});
+let answer = "";
+
+for (let i = 0; i < arr.length; i++) {
+  answer += arr[i] + "\n";
+}
+
+console.log(answer);
