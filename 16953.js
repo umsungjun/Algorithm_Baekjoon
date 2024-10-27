@@ -1,23 +1,27 @@
 let fs = require("fs");
 let input = fs.readFileSync("/dev/stdin").toString().split("\n");
 
-let [a, b] = input[0].split(" ");
+let [a, b] = input[0].split(" ").map(Number);
+let flag = false;
+let result = 1;
 
-let cnt = 0;
-while (Number(b) > Number(a)) {
-  if (b.slice(-1) == 1) {
-    b = b.slice(0, -1);
-    cnt += 1;
-  } else if (Number(b) % 2 === 0) {
-    b = parseInt(b / 2).toString();
-    cnt += 1;
-  } else {
-    console.log(-1);
+while (a <= b) {
+  if (a == b) {
+    flag = true;
+    break;
   }
+  if (b % 2 == 0) {
+    b = parseInt(b / 2);
+  } else if (b % 10 == 1) {
+    b = parseInt(b / 10);
+  } else {
+    break;
+  }
+  result++;
 }
 
-if (a == b) {
-  console.log(cnt + 1);
+if (flag) {
+  console.log(result);
 } else {
   console.log(-1);
 }
