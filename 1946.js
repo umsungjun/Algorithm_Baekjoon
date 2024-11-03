@@ -1,72 +1,33 @@
-// let fs = require("fs");
-// let input = fs.readFileSync("/dev/stdin").toString().split("\n");
+const input = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
 
-const test = () => {
-  const input = [
-    "2",
-    "5",
-    "3 2",
-    "1 4",
-    "4 1",
-    "2 3",
-    "5 5",
-    "7",
-    "3 6",
-    "7 3",
-    "4 2",
-    "1 4",
-    "5 7",
-    "2 5",
-    "6 1",
-  ];
+let testCase = Number(input[0]);
+let line = 1;
 
-  const data = [];
+for (let tc = 0; tc < testCase; tc++) {
+  n = Number(input[line]);
+  let arr = [];
 
-  for (let i = 1; i < input.length; i++) {
-    if (input[i].length === 1) {
-      data.push(
-        input.slice(i + 1, i + Number(input[i]) + 1).map((str) => {
-          return str.split(" ").map(Number).sort();
-        })
-      );
-    }
+  for (let i = line + 1; i <= line + n; i++) {
+    let data = input[i].split(" ").map(Number);
+    arr.push(data);
   }
+}
 
-  data.map((arr) => {
-    return arr.sort((a, b) => {
-      if (a[0] > b[0]) {
-        return 1;
-      } else if (a[0] === b[0]) {
-        if (a[1] > b[1]) {
-          return 1;
-        } else {
-          return -1;
-        }
-      } else {
-        return -1;
-      }
-    });
-  });
+arr.sort((x, y) => x[0] - y[0]);
 
-  console.log(data);
+let count = 0;
+let minValue = 100001;
 
-  data.forEach((arr) => {
-    let cnt = 0;
-    for (let i = 0; i < arr.length; i++) {
-      if (arr[i].includes(1)) {
-        cnt++;
-      } else {
-        for (let j = i - 1; 0 <= j; j--) {
-          const n = arr[i][0]; // 비교 큰값
-          if (arr[j][0] < n && arr[j][1] < n) {
-            console.log(arr[j][0], arr[j][1]);
-          }
-        }
-        cnt++;
-      }
-    }
-    // console.log(cnt);
-  });
-};
+for (let [x, y] of arr) {
+  if (y < minValue) {
+    minValue = y;
+    count += 1;
+  }
+}
 
-test();
+console.log(count);
+line += n + 1;
