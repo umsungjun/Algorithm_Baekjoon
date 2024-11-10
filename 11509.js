@@ -1,20 +1,22 @@
-// const input = require("fs")
-//   .readFileSync("/dev/stdin")
-//   .toString()
-//   .trim()
-//   .split("\n");
+const fs = require("fs");
+const input = fs.readFileSync("/dev/stdin").toString().trim().split("\n");
 
-const test = () => {
-  const input = ["5", "2 1 5 4 3"];
+const n = Number(input.shift());
 
-  const data = input[1].split(" ").map(Number);
+const balloonArr = input[0].split(" ").map(Number);
 
-  let index = 0;
-  while (data.length > 0) {
-    if (data[index] === data[index + 1] - 1) {
-      data.splice(index, 1);
-    }
+const arrowArr = Array(n + 1).fill(0);
+
+let answer = 0;
+
+for (let i = 0; i < n; i++) {
+  if (arrowArr[balloonArr[i]] > 0) {
+    arrowArr[balloonArr[i]] -= 1;
+    arrowArr[balloonArr[i] - 1] += 1;
+  } else {
+    arrowArr[balloonArr[i] - 1] += 1;
+    answer += 1;
   }
-};
+}
 
-test();
+console.log(answer);
