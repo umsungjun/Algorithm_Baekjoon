@@ -22,6 +22,7 @@ const test = () => {
   for (let i = 1; i <= n; i++) {
     let answer = 2;
     const text = input[i];
+
     /* 문자 길이 */
     const textLength = text.length;
 
@@ -30,20 +31,32 @@ const test = () => {
       const centerIndex = textLength / 2;
 
       const str1 = text.substring(0, centerIndex);
-      const str2 = text.substring(centerIndex);
-      console.log(str1, str2);
+      const str2 = text.substring(centerIndex).split("").reverse().join("");
+
       if (str1 === str2) {
-        answer = 1;
+        answer = 0;
+        result += answer + "\n";
+        continue;
       }
     } else {
       // 문자 길이가 홀수인 경우
       const centerIndex = Math.floor(textLength / 2);
 
       const str1 = text.substring(0, centerIndex);
-      const str2 = text.substring(centerIndex + 1);
+      const str2 = text
+        .substring(centerIndex + 1)
+        .split("")
+        .reverse()
+        .join("");
 
       if (str1 === str2) {
-        answer = 1;
+        answer = 0;
+        result += answer + "\n";
+        continue;
+      } else {
+        for (let j = 0; j < textLength; j++) {
+          // 재귀를 돌려야할듯
+        }
       }
     }
 
