@@ -1,68 +1,46 @@
-// const input = require("fs")
-//   .readFileSync("/dev/stdin")
-//   .toString()
-//   .trim()
-//   .split("\n");
+let fs = require("fs");
+let input = fs.readFileSync("/dev/stdin").toString().split("\n");
 
-const test = () => {
-  const input = [
-    "7",
-    "abba",
-    "summuus",
-    "xabba",
-    "xabbay",
-    "comcom",
-    "comwwmoc",
-    "comwwtmoc",
-  ];
+/* 회문 판별 함수 */
+const isPalindrome = (x) => {
+  return x == x.split("").reverse().join("");
+};
 
-  const n = Number(input[0]);
-  let result = "";
+let n = Number(input[0]);
 
-  for (let i = 1; i <= n; i++) {
-    let answer = 2;
-    const text = input[i];
+for (let i = 1; i <= n; i++) {
+  /* 문자열 하나씩 순회 */
+  const data = input[i];
 
-    /* 문자 길이 */
-    const textLength = text.length;
+  if (isPalindrome(data)) {
+    /* 회문 */
+    console.log(0);
+  } else {
+    /* 유사 회문 검사 */
+    let found = false;
+    /* 문자열 길이 */
+    let length = data.length;
 
-    if (textLength % 2 === 0) {
-      // 문자 길이가 짝수인 경우
-      const centerIndex = textLength / 2;
-
-      const str1 = text.substring(0, centerIndex);
-      const str2 = text.substring(centerIndex).split("").reverse().join("");
-
-      if (str1 === str2) {
-        answer = 0;
-        result += answer + "\n";
-        continue;
-      }
-    } else {
-      // 문자 길이가 홀수인 경우
-      const centerIndex = Math.floor(textLength / 2);
-
-      const str1 = text.substring(0, centerIndex);
-      const str2 = text
-        .substring(centerIndex + 1)
-        .split("")
-        .reverse()
-        .join("");
-
-      if (str1 === str2) {
-        answer = 0;
-        result += answer + "\n";
-        continue;
-      } else {
-        for (let j = 0; j < textLength; j++) {
-          // 재귀를 돌려야할듯
+    for (let i = 0; i < parseInt(length / 2); i++) {
+      if (data[i] !== data[length - 1 - i]) {
+        /* 대칭이 아닌 문자를 찾은 경우 */
+        if (isPalindrome(data.slice(0, i) + data.slice(i + 1, length))) {
+          found = true;
+        }
+        if (
+          isPalindrome(
+            data.slice(0, n - i - 1) + data.slice(length - i, length)
+          )
+        ) {
+          found = true;
+          break;
         }
       }
     }
-
-    result += answer + "\n";
+    if (found) {
+      console.log(1);
+    } else {
+      console.log(2);
+    }
   }
-  console.log(result);
-};
-
-test();
+}
