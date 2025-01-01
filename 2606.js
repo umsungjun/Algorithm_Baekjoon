@@ -1,29 +1,38 @@
-// let fs = require("fs");
-// let input = fs.readFileSync("/dev/stdin").toString().split("\n");
+let fs = require("fs");
+let input = fs.readFileSync("/dev/stdin").toString().split("\n");
 
-const test = () => {
-  const input = `7
-6
-1 2
-2 3
-1 5
-5 2
-5 6
-4 7`.split("\n");
+const n = Number(input[0]); // 컴퓨터 개수
+const m = Number(input[1]); //간선의 개수
 
-  // 반복 횟수
-  const n = 2 + Number(input[1]);
-  const arr = new Set([1]);
+const graph = []; // 그래프 정보
 
-  for (let i = 2; i < n; i++) {
-    const [x1, x2] = input[i].split(" ").map(Number);
+/* 컴퓨터 개수만큼 [] 배열 생성 */
+for (let i = 1; i <= n; i++) {
+  graph[i] = [];
+}
 
-    if (arr.has(x1)) {
-      arr.add(x2);
+/* 인접 리스트 생성 */
+for (let i = 2; i <= m + 1; i++) {
+  const [x, y] = input[i].split(" ").map(Number);
+
+  graph[x].push(y);
+  graph[y].push(x);
+}
+
+let cnt = 0;
+/* 방문 노드 생성 */
+let visited = new Array(n + 1).fill(false); // [false, false, false, false, false, false, false, false]
+
+function dfs(x) {
+  visited[x] = true; // 방문 노드 true 처리
+  cnt++;
+  for (y of graph[x]) {
+    if (!visited[y]) {
+      dfs(y);
     }
   }
+}
 
-  console.log(arr.size - 1);
-};
+dfs(1);
 
-test();
+console.log(cnt - 1);
